@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Modal, Image } from 'react-native';
+import { storeToDo } from '../util/http';
 
 function GoalInput(props) {
     const [enteredGoalText, setEnteredGoalText] = useState('');
 
+
     function goalInputHandler(enteredText) {
+
         setEnteredGoalText(enteredText);
+
     }
 
+
     function addGoalHandler() {
+
+        storeToDo(enteredGoalText);
         props.onAddGoal(enteredGoalText);
         setEnteredGoalText('');
     }
@@ -24,12 +31,12 @@ function GoalInput(props) {
                     value={enteredGoalText}
                 />
                 <View style={styles.buttonContainer}>
-                    
+
                     <View style={styles.button}>
-                        <Button title="Cancel" onPress={props.onCancel} color="#f31282"/>
+                        <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
                     </View>
                     <View style={styles.button}>
-                        <Button title="Add Goal" onPress={addGoalHandler} color="#b180f0"/>
+                        <Button title="Add Goal" onPress={addGoalHandler} color="#b180f0" />
                     </View>
 
                 </View>

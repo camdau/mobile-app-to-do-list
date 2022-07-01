@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { fetchToDos } from './util/http';
 
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
@@ -16,6 +17,20 @@ export default function App() {
   function endAddGoalHandler() {
     setModalIsVisible(false);
   }
+
+
+  useEffect(() => {
+    async function getToDos() {
+      const todos = await fetchToDos();
+      return todos
+    }
+
+    getToDos()
+    .then((todos) => {
+      setCourseGoals(todos)
+    })
+    
+  }, []);
 
 
   function addGoalHandler(enteredGoalText) {
